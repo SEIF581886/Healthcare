@@ -4,12 +4,10 @@
 
 // اختبار الاتصال بالذكاء الاصطناعي
 async function testAI() {
+
     try {
 
-        // التأكد من تسجيل الدخول
-        await GammalTech.login();
-
-        // إرسال رسالة بسيطة للذكاء الاصطناعي
+        // إرسال رسالة للذكاء الاصطناعي
         const response = await GammalTech.ai.ask("قل مرحباً فقط");
 
         console.log("AI Response:", response);
@@ -23,4 +21,5 @@ async function testAI() {
         return null;
 
     }
+
 }
