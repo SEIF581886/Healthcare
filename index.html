@@ -2,49 +2,41 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>Healthcare AI</title>
+    <title>Healthcare</title>
 </head>
 <body>
 
-    <h1>Healthcare AI</h1>
+    <h1>Healthcare</h1>
 
-    <button onclick="login()">تسجيل الدخول</button>
+    <button onclick="login()">1. تسجيل الدخول</button>
+    <button onclick="createDatabase()">2. تهيئة الداتا بيز</button>
+    <button onclick="testAI()">اختبار AI بسيط</button>
+    <button onclick="runPrediction()">3. بدء التنبؤ بالأمراض</button>
 
-    <button onclick="testAI()">اختبار AI</button>
+    <!-- مكان لعرض تقرير الـ AI على الشاشة مباشرة -->
+    <div id="result-box" style="margin-top:20px; padding:10px; background:#f0f0f0; white-space:pre-wrap;"></div>
 
     <!-- Gammal Tech SDK -->
     <script src="https://api.gammal.tech/sdk-web.js"></script>
 
-    <!-- Database -->
+    <!-- ملفات المشروع -->
     <script src="User Database.js"></script>
     <script src="databaseUtils.js"></script>
-
-    <!-- AI -->
     <script src="aiService.js"></script>
 
     <script>
-
-        async function login() {
-
-            try {
-
-                // لا تعيد تسجيل الدخول إذا كان المستخدم مسجل بالفعل
-                if (!GammalTech.isLoggedIn()) {
-                    await GammalTech.login();
-                }
-
-                console.log("✅ Login Success");
-
-            } catch (error) {
-
-                console.error("❌ Login Error:", error);
-
-            }
-
+        function login() {
+            GammalTech.login();
         }
 
+        // تشغيل دالة التنبؤ وعرضها في الصفحة
+        async function runPrediction() {
+            const resultBox = document.getElementById('result-box');
+            resultBox.innerText = "جاري التحليل الحركي للبيانات...";
+            const report = await predictDisease();
+            resultBox.innerText = report || "حدث خطأ أثناء معالجة البيانات.";
+        }
     </script>
 
 </body>
 </html>
-   
