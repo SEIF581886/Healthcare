@@ -2,11 +2,11 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>Healthcare</title>
+    <title>Healthcare AI</title>
 </head>
 <body>
 
-    <h1>Healthcare</h1>
+    <h1>Healthcare AI</h1>
 
     <button onclick="login()">تسجيل الدخول</button>
 
@@ -15,15 +15,34 @@
     <!-- Gammal Tech SDK -->
     <script src="https://api.gammal.tech/sdk-web.js"></script>
 
-    <!-- ملفات المشروع -->
+    <!-- Database -->
     <script src="User Database.js"></script>
     <script src="databaseUtils.js"></script>
+
+    <!-- AI -->
     <script src="aiService.js"></script>
 
     <script>
-        function login() {
-            GammalTech.login();
+
+        async function login() {
+
+            try {
+
+                // لا تعيد تسجيل الدخول إذا كان المستخدم مسجل بالفعل
+                if (!GammalTech.isLoggedIn()) {
+                    await GammalTech.login();
+                }
+
+                console.log("✅ Login Success");
+
+            } catch (error) {
+
+                console.error("❌ Login Error:", error);
+
+            }
+
         }
+
     </script>
 
 </body>
