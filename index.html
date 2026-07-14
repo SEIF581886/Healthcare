@@ -1,42 +1,183 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Healthcare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare & AI Prediction System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        .control-group {
+            background: #fcfcfc;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        select {
+            background-color: #fff;
+            cursor: pointer;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .btn-success {
+            background-color: #2ecc71;
+        }
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        #result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-right: 5px solid #3498db;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #2c3e50;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Healthcare</h1>
+    <div class="container">
+        <h1>نظام التنبؤ بالأمراض المستقبلية بالذكاء الاصطناعي 🩺🤖</h1>
 
-    <button onclick="login()">1. تسجيل الدخول</button>
-    <button onclick="createDatabase()">2. تهيئة الداتا بيز</button>
-    <button onclick="testAI()">اختبار AI بسيط</button>
-    <button onclick="runPrediction()">3. بدء التنبؤ بالأمراض</button>
+        <div class="control-group">
+            <label>الخطوة 1: تهيئة النظام والاتصال</label>
+            <button onclick="login()">تسجيل الدخول عبر Gammal Tech</button>
+            <button class="btn-secondary" onclick="createDatabase()">تهيئة الداتا بيز الافتراضية</button>
+            <button class="btn-secondary" onclick="runTestAI()">اختبار الـ AI (مرحباً)</button>
+        </div>
 
-    <!-- مكان لعرض تقرير الـ AI على الشاشة مباشرة -->
-    <div id="result-box" style="margin-top:20px; padding:10px; background:#f0f0f0; white-space:pre-wrap;"></div>
+        <div class="control-group">
+            <label for="patient-select">الخطوة 2: اختر أحد الـ 10 مرضى الوهميين لتجربته:</label>
+            <select id="patient-select">
+                <option value="0">1. أحمد السيد (بوادر سكري وضغط مرتفع)</option>
+                <option value="1">2. سارة محمود (رياضية سليمة تماماً)</option>
+                <option value="2">3. خالد العتيبي (مشاكل تنفسية حادة ومدخن)</option>
+                <option value="3">4. محمد عبد الرحمن (خطر أمراض القلب والدهون العالية)</option>
+                <option value="4">5. فاطمة الزهراء (أنيميا حادة وهبوط ضغط)</option>
+                <option value="5">6. عمر فاروق (أرق مزمن وضغط عصبي حاد)</option>
+                <option value="6">7. منى علي (سمنة مفرطة وخمول غدة محتمل)</option>
+                <option value="7">8. سليمان الحسن (مرض السكر النوع الثاني غير منضبط)</option>
+                <option value="8">9. يوسف هشام (نمط حياة غير صحي ومشروبات طاقة وخفقان)</option>
+                <option value="10" style="display:none;"></option> <option value="9">10. الحاج عبد الله (مسن يعاني من ضغط ومشاكل كلى محتملة)</option>
+            </select>
+            <button class="btn-success" onclick="loadSelectedPatient()">شحن وحقن بيانات المريض المختار 💾</button>
+        </div>
 
-    <!-- Gammal Tech SDK -->
+        <div class="control-group">
+            <label>الخطوة 3: التنبؤ والتحليل الذكي</label>
+            <button class="btn-success" style="font-size: 18px; padding: 15px;" onclick="runPrediction()">بدء التنبؤ بالأمراض المستقبلية 🎯</button>
+        </div>
+
+        <label>تقرير التنبؤ والتحليل الطبي الوقائي:</label>
+        <div id="result-box">التقرير سيظهر هنا بمجرد النقر على زر التنبؤ...</div>
+    </div>
+
     <script src="https://api.gammal.tech/sdk-web.js"></script>
 
-    <!-- ملفات المشروع -->
     <script src="User Database.js"></script>
     <script src="databaseUtils.js"></script>
     <script src="aiService.js"></script>
+    <script src="servicesManager.js"></script>
+    <script src="systemManager.js"></script>
 
     <script>
+        // دالة تسجيل الدخول
         function login() {
             GammalTech.login();
         }
 
-        // تشغيل دالة التنبؤ وعرضها في الصفحة
+        // دالة لحقن بيانات المريض المختار من القائمة
+        async function loadSelectedPatient() {
+            const selectElement = document.getElementById('patient-select');
+            const selectedIndex = parseInt(selectElement.value);
+            await injectPatientData(selectedIndex);
+        }
+
+        // دالة اختبار الـ AI البسيط
+        async function runTestAI() {
+            const resultBox = document.getElementById('result-box');
+            resultBox.innerText = "⏳ جاري إرسال اختبار ترحيبي للذكاء الاصطناعي...";
+            const response = await testAI();
+            if(response) {
+                resultBox.innerText = "رد الـ AI الترحيبي:\n\n" + response;
+            } else {
+                resultBox.innerText = "❌ فشل اختبار الاتصال بالذكاء الاصطناعي.";
+            }
+        }
+
+        // تشغيل دالة التنبؤ الحقيقية وعرضها في الصفحة
         async function runPrediction() {
             const resultBox = document.getElementById('result-box');
-            resultBox.innerText = "جاري التحليل الحركي للبيانات...";
-            const report = await predictDisease();
-            resultBox.innerText = report || "حدث خطأ أثناء معالجة البيانات.";
+            resultBox.innerText = "⏳ جاري قراءة المؤشرات الحيوية وتحليلها وتوليد تقرير التنبؤ الوقائي من الـ AI...";
+            
+            try {
+                const report = await predictDisease();
+                if (report) {
+                    resultBox.innerText = report;
+                } else {
+                    resultBox.innerText = "❌ لم يتم الحصول على استجابة من الذكاء الاصطناعي، يرجى مراجعة البيانات.";
+                }
+            } catch (error) {
+                resultBox.innerText = "❌ حدث خطأ غير متوقع أثناء المعالجة.";
+                console.error(error);
+            }
         }
     </script>
-
 </body>
 </html>
